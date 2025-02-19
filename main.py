@@ -30,10 +30,36 @@ def process_data(price_change_url, stock_report_url, output_file):
     df_true_values = load_price_change_data(price_change_url)
     extra_data_df = load_free_stock_report(stock_report_url)
     if df_true_values is not None and extra_data_df is not None:
-        df_true_values = df_true_values.set_index('SKU').join(extra_data_df.set_index('Sku code'), how='left')
+        df_true_values = df_true_values.set_index('SKU').join(extra_data_df.set_index('Sku code'), how='left').reset_index()
     return df_true_values
 
-st.title("UK & EU Price Change Processing")
+# Function to convert dataframe to CSV for download
+def convert_df_to_csv(df):
+    csv = df.to_csv(index=False)
+    return csv
+
+# Set the page configuration
+st.set_page_config(page_title="UK & EU Price Change Processing", layout="centered")
+
+# Using HTML and CSS to center the title
+st.markdown("""
+    <style>
+        .title {
+            text-align: center;
+            font-size: 2.5em;
+            color: #2F4F4F;
+        }
+        .container {
+            padding: 20px;
+        }
+        .download-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+    <h1 class="title">📊 Price Update & Stock Management</h1>
+""", unsafe_allow_html=True)
+
 
 option = st.selectbox("Select Region", ["UK", "EU"])
 
@@ -44,12 +70,21 @@ price_change_urls = {
 
 stock_report_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTMRiRm7_GGUY1gmeGXQc3q85qNUvry1OKXWWYkPVQIdTFQTXi7LUS1IgVjrDVnmsLDvL8M12aWYqQ4/pub?output=csv"
 output_files = {"UK": "data_UK.csv", "EU": "data_EU.csv"}
-
-if st.button("Run Script"):
-    with st.spinner("Processing data..."):
-        df_result = process_data(price_change_urls[option], stock_report_url, output_files[option])
-        if df_result is not None:
-            st.success("Processing completed successfully!")
-            st.dataframe(df_result)
-        else:
-            st.error("Processing failed.")
+col1, col2, col3 = st.columns([1, 1, 1])
+with col2:
+    if st.button("🔍 Process Data", use_container_width=True):
+        with st.spinner("Processing data"):
+            df_result = process_data(price_change_urls[option], stock_report_url, output_files[option])
+            if df_result is not None:
+                # Convert the processed DataFrame to CSV
+                csv_data = convert_df_to_csv(df_result)
+                #st.success("Processing completed successfully!")
+                st.download_button(
+                    label="Download Processed Data",
+                    data=csv_data,
+                    file_name=f"{output_files[option]}",
+                    mime="text/csv",
+                    use_container_width=True
+                )
+            else:
+                st.error("Processing failed.")
