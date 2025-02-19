@@ -50,6 +50,6 @@ if st.button("Run Script"):
         df_result = process_data(price_change_urls[option], stock_report_url, output_files[option])
         if df_result is not None:
             st.success("Processing completed successfully!")
-            st.dataframe(df_result.head())
+            st.dataframe(df_result)
         else:
             st.error("Processing failed.")
