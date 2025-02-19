@@ -38,6 +38,27 @@ def convert_df_to_csv(df):
     csv = df.to_csv(index=False)
     return csv
 
+# Set the page configuration
+st.set_page_config(page_title="UK & EU Price Change Processing", layout="centered")
+
+# Using HTML and CSS to center the title
+st.markdown("""
+    <style>
+        .title {
+            text-align: center;
+            font-size: 2.5em;
+            color: #2F4F4F;
+        }
+        .container {
+            padding: 20px;
+        }
+        .download-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+    <h1 class="title">💼 UK & EU Price Change Processing</h1>
+""", unsafe_allow_html=True)
 
 st.title("UK & EU Price Change Processing")
 
@@ -51,38 +72,6 @@ price_change_urls = {
 stock_report_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTMRiRm7_GGUY1gmeGXQc3q85qNUvry1OKXWWYkPVQIdTFQTXi7LUS1IgVjrDVnmsLDvL8M12aWYqQ4/pub?output=csv"
 output_files = {"UK": "data_UK.csv", "EU": "data_EU.csv"}
 
-# Custom CSS for styling
-st.markdown("""
-    <style>
-        .title {
-            font-size: 36px;
-            font-weight: bold;
-            color: #4CAF50;
-            text-align: center;
-        }
-        .description {
-            font-size: 18px;
-            margin-bottom: 30px;
-            color: #555;
-            text-align: center;
-        }
-        .button-container {
-            display: flex;
-            justify-content: center;
-        }
-        .spinner-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 50px;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-# Main interface
-st.markdown('<p class="title">UK & EU Price Change Processing</p>', unsafe_allow_html=True)
-st.markdown('<p class="description">Select the region and click on the button below to process price changes.</p>', unsafe_allow_html=True)
-
-# Data processing and download button
 if st.button("Run Script"):
     with st.spinner("Processing data..."):
         df_result = process_data(price_change_urls[option], stock_report_url, output_files[option])
