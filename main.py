@@ -60,7 +60,6 @@ st.markdown("""
     <h1 class="title">💼 UK & EU Price Change Processing</h1>
 """, unsafe_allow_html=True)
 
-st.title("UK & EU Price Change Processing")
 
 option = st.selectbox("Select Region", ["UK", "EU"])
 
