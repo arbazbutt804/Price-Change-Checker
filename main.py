@@ -73,12 +73,12 @@ output_files = {"UK": "data_UK.csv", "EU": "data_EU.csv"}
 col1, col2, col3 = st.columns([1, 1, 1])
 with col2:
     if st.button("🔍 Process Data", use_container_width=True):
-        with st.spinner("Processing data..."):
+        with st.spinner("...Processing data"):
             df_result = process_data(price_change_urls[option], stock_report_url, output_files[option])
             if df_result is not None:
                 # Convert the processed DataFrame to CSV
                 csv_data = convert_df_to_csv(df_result)
-                st.success("Processing completed successfully!")
+                #st.success("Processing completed successfully!")
                 st.download_button(
                     label="Download Processed Data",
                     data=csv_data,
