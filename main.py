@@ -21,14 +21,14 @@ def load_free_stock_report(url):
     lookup_df.iloc[:, 0] = lookup_df.iloc[:, 0].astype(str)
     selected_columns = [0, 5, 6, 12, 13, 19, 20]
     extra_data_df = lookup_df.iloc[:, selected_columns]
-    extra_data_df.columns = ['SKU Description', 'UK Stock', 'UK Cover', 'NL Stock', 'NL Cover', 'MG Stock', 'MG Cover']
+    extra_data_df.columns = ['Sku code','SKU Description', 'UK Stock', 'UK Cover', 'NL Stock', 'NL Cover', 'MG Stock', 'MG Cover']
     return extra_data_df
 
 def process_data(price_change_url, stock_report_url, output_file):
     df_true_values = load_price_change_data(price_change_url)
     extra_data_df = load_free_stock_report(stock_report_url)
     if df_true_values is not None and extra_data_df is not None:
-        df_true_values = df_true_values.set_index('SKU').join(extra_data_df.set_index('SKU Description'), how='left')
+        df_true_values = df_true_values.set_index('SKU').join(extra_data_df.set_index('Sku code'), how='left')
         df_true_values.to_csv(output_file)
         return df_true_values
     return None
