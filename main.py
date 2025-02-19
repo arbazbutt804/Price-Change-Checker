@@ -60,7 +60,7 @@ if st.button("Run Script"):
             st.download_button(
                 label="Download Processed Data",
                 data=csv_data,
-                file_name=f"{output_files[option]}_data.csv",
+                file_name=f"{output_files[option]}",
                 mime="text/csv",
                 use_container_width=True
             )
