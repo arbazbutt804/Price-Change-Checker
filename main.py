@@ -51,7 +51,7 @@ price_change_urls = {
 stock_report_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTMRiRm7_GGUY1gmeGXQc3q85qNUvry1OKXWWYkPVQIdTFQTXi7LUS1IgVjrDVnmsLDvL8M12aWYqQ4/pub?output=csv"
 output_files = {"UK": "data_UK.csv", "EU": "data_EU.csv"}
 
-st.set_page_config(page_title="Price Change Processing", page_icon="📊", layout="centered")
+st.set_page_config(page_title="Price Change Processing", layout="centered")
 
 # Custom CSS for styling
 st.markdown("""
