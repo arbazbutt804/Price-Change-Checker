@@ -60,8 +60,32 @@ st.markdown("""
     <h1 class="title">📊 Price Update & Stock Management</h1>
 """, unsafe_allow_html=True)
 
+# Using HTML to style the selectbox header
+st.markdown("""
+    <style>
+        .selectbox-container {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 18px;
+        }
+        .stSelectbox > div > div > input {
+            height: 40px;
+            font-size: 16px;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-option = st.selectbox("Select Region", ["UK", "EU"])
+
+# Custom-styled Selectbox
+with st.container():
+    st.markdown('<div class="selectbox-container"><label>Select Region:</label></div>', unsafe_allow_html=True)
+    option = st.selectbox(
+        "",
+        ["UK", "EU"],
+        index=0,
+        key="region_select",
+        help="Choose the region to process price changes"
+    )
 
 price_change_urls = {
     "UK": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRQdch8ifiMx_U_itOI8x2OOEUwc0gj_NGgGO6gDvbV88UoTOqqA_Lick99Ka8jYKwF18itR14stkFE/pub?gid=0&single=true&output=csv",
