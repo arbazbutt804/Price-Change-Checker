@@ -71,7 +71,7 @@ price_change_urls = {
 stock_report_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTMRiRm7_GGUY1gmeGXQc3q85qNUvry1OKXWWYkPVQIdTFQTXi7LUS1IgVjrDVnmsLDvL8M12aWYqQ4/pub?output=csv"
 output_files = {"UK": "data_UK.csv", "EU": "data_EU.csv"}
 
-if st.button("Run Script"):
+if st.button("Run Script",use_container_width=True):
     with st.spinner("Processing data..."):
         df_result = process_data(price_change_urls[option], stock_report_url, output_files[option])
         if df_result is not None:
