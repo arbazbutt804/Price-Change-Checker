@@ -19,7 +19,7 @@ def load_free_stock_report(url):
         return None
     lookup_df = pd.read_csv(StringIO(response.text), skiprows=3)
     lookup_df.iloc[:, 0] = lookup_df.iloc[:, 0].astype(str)
-    selected_columns = [0, 5, 6, 12, 13, 19, 20]
+    selected_columns = [0, 1 , 5, 6, 12, 13, 19, 20]
     extra_data_df = lookup_df.iloc[:, selected_columns]
     extra_data_df.columns = ['Sku code','SKU Description', 'UK Stock', 'UK Cover', 'NL Stock', 'NL Cover', 'MG Stock', 'MG Cover']
     return extra_data_df
