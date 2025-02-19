@@ -80,6 +80,7 @@ st.markdown("""
 with st.container():
     st.markdown('<div class="selectbox-container"><label>Select Region:</label></div>', unsafe_allow_html=True)
     option = st.selectbox(
+        "",
         ["UK", "EU"],
         index=0,
         key="region_select",
