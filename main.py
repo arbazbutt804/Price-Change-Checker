@@ -96,6 +96,7 @@ stock_report_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTMRiRm7_GGU
 output_files = {"UK": "data_UK.csv", "EU": "data_EU.csv"}
 col1, col2, col3 = st.columns([1, 1, 1])
 with col2:
+    st.markdown("<br><br>", unsafe_allow_html=True)
     if st.button("🔍 Process Data", use_container_width=True):
         with st.spinner("Processing data"):
             df_result = process_data(price_change_urls[option], stock_report_url, output_files[option])
