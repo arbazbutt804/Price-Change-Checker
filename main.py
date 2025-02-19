@@ -33,6 +33,11 @@ def process_data(price_change_url, stock_report_url, output_file):
         df_true_values = df_true_values.set_index('SKU').join(extra_data_df.set_index('Sku code'), how='left')
     return df_true_values
 
+# Function to convert dataframe to CSV for download
+def convert_df_to_csv(df):
+    csv = df.to_csv(index=False)
+    return csv
+
 st.title("UK & EU Price Change Processing")
 
 option = st.selectbox("Select Region", ["UK", "EU"])
@@ -49,7 +54,15 @@ if st.button("Run Script"):
     with st.spinner("Processing data..."):
         df_result = process_data(price_change_urls[option], stock_report_url, output_files[option])
         if df_result is not None:
+            # Convert the processed DataFrame to CSV
+            csv_data = convert_df_to_csv(df_result)
             st.success("Processing completed successfully!")
-            st.dataframe(df_result)
+            st.download_button(
+                label="Download Processed Data",
+                data=csv_data,
+                file_name=f"{output_files[option]}_data.csv",
+                mime="text/csv",
+                use_container_width=True
+            )
         else:
             st.error("Processing failed.")
