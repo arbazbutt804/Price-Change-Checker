@@ -1,3 +1,5 @@
+import io
+
 import streamlit as st
 import pandas as pd
 import requests
@@ -31,6 +33,20 @@ def process_data(price_change_url, stock_report_url, output_file):
     extra_data_df = load_free_stock_report(stock_report_url)
     if df_true_values is not None and extra_data_df is not None:
         df_true_values = df_true_values.set_index('SKU').join(extra_data_df.set_index('Sku code'), how='left')
+        # Convert DataFrame to CSV in memory
+        csv_buffer = io.BytesIO()
+        df_true_values.to_csv(csv_buffer, index=True)  # Keep index for SKU
+        csv_buffer.seek(0)
+        # Streamlit UI for Download
+        st.title("Download Processed Price Change Data")
+        st.dataframe(df_true_values.head())  # Display first few rows
+
+        st.download_button(
+            label="Download Processed CSV",
+            data=csv_buffer,
+            file_name="processed_data.csv",
+            mime="text/csv"
+        )
         #df_true_values.to_csv(output_file)
         return df_true_values
     return None
