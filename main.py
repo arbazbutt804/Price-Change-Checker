@@ -8,6 +8,8 @@ def load_price_change_data(url):
     df = df[["SKU", "Price Increase due to stock location or Low stock"]]
     df["SKU"] = df["SKU"].astype(str)
     df_last_occurrences = df.drop_duplicates(subset="SKU", keep="last")
+    df_last_occurrences["SKU"] = df_last_occurrences["SKU"].astype(str).str.strip()  # Strip whitespace
+    df_last_occurrences = df_last_occurrences[df_last_occurrences["SKU"].str.len() > 0]  # Remove empty SKUs
     df_true_values = df_last_occurrences[
         df_last_occurrences["Price Increase due to stock location or Low stock"] == True]
     return df_true_values
