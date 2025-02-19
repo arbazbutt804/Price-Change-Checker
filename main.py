@@ -41,29 +41,24 @@ def convert_df_to_csv(df):
 # Set the page configuration
 st.set_page_config(page_title="UK & EU Price Change Processing", layout="centered")
 
-# Header
+# Using HTML and CSS to center the title
 st.markdown("""
     <style>
         .title {
             text-align: center;
-            font-size: 2em;
+            font-size: 2.5em;
+            color: #2F4F4F;
+        }
+        .container {
+            padding: 20px;
+        }
+        .download-btn {
+            margin-top: 20px;
+            text-align: center;
         }
     </style>
-    <h1 class="title">📊 Price Change and Stock Processor</h1>
+    <h1 class="title">📊 Price Update & Stock Management</h1>
 """, unsafe_allow_html=True)
-
-# Styling for button
-button_style = """
-    <style>
-        .stButton button {
-            width: 150px;  /* Customize width */
-            padding: 10px; /* Customize padding */
-            font-size: 16px; /* Customize font size */
-            text-align: center; /* Align text center */
-        }
-    </style>
-"""
-st.markdown(button_style, unsafe_allow_html=True)
 
 
 option = st.selectbox("Select Region", ["UK", "EU"])
@@ -76,7 +71,7 @@ price_change_urls = {
 stock_report_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTMRiRm7_GGUY1gmeGXQc3q85qNUvry1OKXWWYkPVQIdTFQTXi7LUS1IgVjrDVnmsLDvL8M12aWYqQ4/pub?output=csv"
 output_files = {"UK": "data_UK.csv", "EU": "data_EU.csv"}
 
-if st.button("Run Script",use_container_width=False):
+if st.button("Run Script",use_container_width=True):
     with st.spinner("Processing data..."):
         df_result = process_data(price_change_urls[option], stock_report_url, output_files[option])
         if df_result is not None:
