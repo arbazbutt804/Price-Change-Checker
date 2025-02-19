@@ -32,8 +32,7 @@ def process_data(price_change_url, stock_report_url, output_file):
     if df_true_values is not None and extra_data_df is not None:
         df_true_values = df_true_values.set_index('SKU').join(extra_data_df.set_index('Sku code'), how='left')
         #df_true_values.to_csv(output_file)
-        return df_true_values
-    return None
+    return df_true_values
 
 st.title("UK & EU Price Change Processing")
 
