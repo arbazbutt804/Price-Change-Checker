@@ -30,7 +30,7 @@ def process_data(price_change_url, stock_report_url, output_file):
     df_true_values = load_price_change_data(price_change_url)
     extra_data_df = load_free_stock_report(stock_report_url)
     if df_true_values is not None and extra_data_df is not None:
-        df_true_values = df_true_values.set_index('SKU').join(extra_data_df.set_index('Sku code'), how='left')
+        df_true_values = df_true_values.set_index('SKU').join(extra_data_df.set_index('Sku code'), how='left').reset_index()
     return df_true_values
 
 # Function to convert dataframe to CSV for download
