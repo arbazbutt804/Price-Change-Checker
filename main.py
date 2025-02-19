@@ -60,7 +60,20 @@ st.markdown("""
     <h1 class="title">📊 Price Update & Stock Management</h1>
 """, unsafe_allow_html=True)
 
-
+# Using HTML to style the selectbox header
+st.markdown("""
+    <style>
+        .selectbox-container {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 18px;
+        }
+        .stSelectbox > div > div > input {
+            height: 40px;
+            font-size: 16px;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 
 # Custom-styled Selectbox
